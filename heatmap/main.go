@@ -41,10 +41,19 @@ func NewHeatMapFromStringMatrix(bs [][]string) HeatMap {
 			// Make sure width is constant
 
 			// Make sure the string value is actually an int
-			v, err := strconv.Atoi(bs[j][i])
+
+			// For now, input will be floats, so do string -> float -> int
+			// until I fix heatmap to work with floats instead of ints (should be simple)
+			vf, err := strconv.ParseFloat(bs[j][i], 64)
 			if err != nil {
 				panic("failed to parse string into integer")
 			}
+			v := int(vf)
+
+			// v, err := strconv.Atoi(bs[j][i])
+			// if err != nil {
+			// 	panic("failed to parse string into integer")
+			// }
 
 			// Add to current row
 			currRow = append(currRow, v)
