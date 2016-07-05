@@ -14,6 +14,7 @@ import (
 
 func main() {
 	fName := flag.String("f", "data.csv", "CSV File to load")
+	oName := flag.String("o", "heatmap.jpeg", "Name of output file")
 	flag.Parse()
 
 	// Read Data
@@ -24,7 +25,7 @@ func main() {
 
 	DrawGrid(img, hm)
 
-	SaveImage(img)
+	SaveImage(*oName, img)
 }
 
 type HeatMap [][]int
@@ -205,8 +206,8 @@ func CreateImage(sizeX, sizeY int) *image.RGBA {
 	return image.NewRGBA(rect)
 }
 
-func SaveImage(m *image.RGBA) {
-	outF, err := os.Create("./myImage.jpeg")
+func SaveImage(oName string, m *image.RGBA) {
+	outF, err := os.Create(oName)
 	if err != nil {
 		panic(err)
 	}
