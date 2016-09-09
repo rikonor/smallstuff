@@ -44,3 +44,30 @@ func Uint32ToIP(iip uint32) net.IP {
 
 	return net.IPv4(a, b, c, d)
 }
+
+// CIDRToIPRange converts a CIDR string to an IP range
+func CIDRToIPRange(cidr string) (net.IP, net.IP) {
+	ip1, ipNet, err := net.ParseCIDR(cidr)
+	if err != nil {
+		panic(err)
+	}
+
+	maskBitSize, _ := ipNet.Mask.Size()
+	incSize := uint32(1) << uint32(32-maskBitSize)
+
+	ip2 := Increment(ip1, incSize)
+
+	return ip1, ip2
+}
+
+// IPRangeSize returns the number of IPs in the given range
+func IPRangeSize(ip1, ip2 net.IP) uint32 {
+	iip1 := IPToUint32(ip1)
+	iip2 := IPToUint32(ip2)
+
+	if iip1 > iip2 {
+		panic("invalid ip range")
+	}
+
+	return iip2 - iip1
+}
