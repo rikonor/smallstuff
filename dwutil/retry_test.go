@@ -29,7 +29,7 @@ func TestRetryDownloader(t *testing.T) {
 		}
 
 		// Create a RetryDownloader that will retry `timesToFail + 1` times before giving up
-		d := NewRetryDownloader(md, timesToFail+1)
+		d := NewRetryDownloader(md, timesToFail+1, 0)
 
 		r, err := d.Download("http://example.com")
 		if err != nil {
