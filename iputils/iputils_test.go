@@ -141,7 +141,7 @@ func TestIPRangeSize(t *testing.T) {
 		testCase{
 			[2]net.IP{
 				net.ParseIP("193.254.30.0"),
-				net.ParseIP("193.254.31.0"),
+				net.ParseIP("193.254.30.255"),
 			},
 			256,
 		},

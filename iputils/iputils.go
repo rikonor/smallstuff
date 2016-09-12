@@ -54,6 +54,7 @@ func CIDRToIPRange(cidr string) (net.IP, net.IP) {
 
 	maskBitSize, _ := ipNet.Mask.Size()
 	incSize := uint32(1) << uint32(32-maskBitSize)
+	incSize-- // 2^(32-maskSize) - 1
 
 	ip2 := Increment(ip1, incSize)
 
